@@ -1,13 +1,14 @@
 import React,{useEffect, useState,useContext} from "react";
 import { CartContext } from "../context/CartContext";
 import paypal from './paypal.png';
+import {connect} from 'react-redux';
 import { MDBIcon } from 'mdb-react-ui-kit';
 
 
-function Checkout() {
+function Checkout(props) {
  
-  const {cartItems,setCartItems} = useContext(CartContext);
-  const [items,setItems] = useState(cartItems);
+  // const {cartItems,setCartItems} = useContext(CartContext);
+  const [items,setItems] = useState(props.cartData);
   
   const [subtotalPrice,setSubTotalPrice] =useState(0);
   const [discountPrice,setDiscountPrice] = useState(0);
@@ -36,7 +37,7 @@ function Checkout() {
   let newItems = [...items];
   newItems = newItems.filter(x => x.id != id);
   calculatePrices(newItems);
-  setCartItems(newItems);
+  // setCartItems(newItems);
 }
 
 return(
@@ -139,4 +140,9 @@ return(
   )
 }
 
-export default Checkout;
+const mapStateToProps = (state) =>{
+  return {
+      cartData: state.cart.cartItems
+  }
+}
+export default connect(mapStateToProps)(Checkout);

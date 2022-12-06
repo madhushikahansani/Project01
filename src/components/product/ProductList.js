@@ -5,7 +5,8 @@ import ProductCard from '../product/ProductCard';
 function ProductList(props) {
     const [productList,setProductList] = useState([]);
     useEffect(()=>{
-      fetch('https://fakestoreapi.com/products')
+    //   fetch('https://fakestoreapi.com/products')
+    fetch('http://localhost:5000/products')
           .then(res=>res.json()) //extract json data
           .then(result=>{
             //   setProductList(result);
@@ -29,10 +30,10 @@ function ProductList(props) {
                 <ProductCard key={index}
                             id={item.id}
                             image={item.image} 
-                            title={item.title} 
+                            title={item.name} 
                             price={item.price}  
                             discount={item.discount}
-                            rating={item.rating.rate}
+                            rating={item.rating}
                 />
             )
         })

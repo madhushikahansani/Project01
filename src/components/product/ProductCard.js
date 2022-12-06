@@ -1,10 +1,11 @@
 import React,{useState, useEffect, useContext} from "react";
 import {Link} from "react-router-dom";
-import { CartContext } from "../../context/CartContext";
+// import { CartContext } from "../../context/CartContext";
+import {connect} from 'react-redux';
 
-export default function ProductCard(props) {
+ function ProductCard(props) {
   const [addToCartDisable,setAddToCartDisable] = useState(false);
-  const {cartItems,setCartItems} = useContext(CartContext);
+  // const {cartItems,setCartItems} = useContext(CartContext);
   const [productDetail,setProductDetail] = useState({
     id:"",
     image:"",
@@ -31,9 +32,14 @@ useEffect( () =>{
 
   const handleBtnClick = () => {
     //console.log("Click is Working");
-    const newCartItems = [...cartItems,productDetail];
-        setCartItems(newCartItems);
+    // const newCartItems = [...cartItems,productDetail];
+        // setCartItems(newCartItems);
+        props.dispatch({
+          type:'ADD_CART_ITEMS',
+          payload: productDetail
+        })
         setAddToCartDisable(true);
+
   }
 
   return (
@@ -52,3 +58,9 @@ useEffect( () =>{
 
   )
 }
+const mapStateToProps = (state) =>{
+  return {
+      cartData: state.cart.cartItems
+  }
+}
+export default connect(mapStateToProps)(ProductCard);

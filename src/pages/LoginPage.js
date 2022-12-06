@@ -1,8 +1,11 @@
-import React,{useState}from "react";
+import React,{useState, useContext} from "react";
+import { UserContext } from '../context/UserContext';
 import { login } from "../services/loginServices";
-
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
+    const navigate = useNavigate();
+    const {setAuthUser} = useContext(UserContext);
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
 
@@ -15,15 +18,25 @@ const LoginPage = () => {
     }
 
     const handleLogin = () =>{
-       let isLogin = login(email,password);
-       if(isLogin){
-        alert("Login Successful");
+      fetch(`http://localhost:5000/user?email=${email}&password=${password}`)
+          .then(res=>res.json()) //extract json data
+          .then(result=>{
+  
+       if(result.length >0){
+         setAuthUser({
+            email: result[0].email,
+            name: result[0].fullName,
+            id: result[0].id
+         })
+         navigate('/home');
        }
        else{
         alert("Invalid username or password");
        }
         console.log("Email :"+ email);
         console.log("Password :"+password);
+            })
+      
     }
   return (
     <div>

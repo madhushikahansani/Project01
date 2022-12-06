@@ -7,11 +7,14 @@ import Navigation from './components/Navigation';
 import Footer from './components/Footer';
 import { UserContextProvider} from "./context/UserContext";
 import { CartContextProvider} from "./context/CartContext";
+import {Provider} from 'react-redux';
+import store from "./redux/store";
 
 function App() {
   const routes = useRoutes(routesConfig);
   // return routes;
   return (
+    <Provider store={store} >
     <UserContextProvider>
       <CartContextProvider>
       <div className="App">
@@ -31,6 +34,7 @@ function App() {
       </div>
       </CartContextProvider>
     </UserContextProvider>
+    </Provider>
   );
 }
 

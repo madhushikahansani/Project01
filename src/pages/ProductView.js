@@ -21,7 +21,7 @@ function ProductView(props) {
         category:""
     });
     useEffect(()=>{
-        fetch(`https://fakestoreapi.com/products/${id}`)
+        fetch(`http://localhost:5000/products/${id}`)
             .then(res=>res.json())
             .then(json=>{
                 const result = {
@@ -29,7 +29,7 @@ function ProductView(props) {
                     id: json.id,
                     image:json.image,
                     price:json.price,
-                    title:json.title,
+                    title:json.name,
                     description:json.description,
                     category:json.category
                 }

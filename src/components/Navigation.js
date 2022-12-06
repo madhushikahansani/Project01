@@ -3,7 +3,14 @@ import { Link } from "react-router-dom";
 import ProductCart from './product/ProductCart';
 import { UserContext } from '../context/UserContext';
 function Navigation(){
-   const {authUser} = useContext(UserContext);
+   const {authUser,setAuthUser} = useContext(UserContext);
+   // Logout updates the user data to default
+  const handleLogout = () => {
+    setAuthUser((user) => ({
+      name: '',
+      auth: false,
+    }));
+  };
         return(
             <div>
                 <nav>
@@ -14,7 +21,11 @@ function Navigation(){
                         <li><Link to='/contact-us'>Contact Us</Link></li>
                         <li><Link to='/project'>Project</Link></li>
                         <li><ProductCart/></li>
-                        <li>{authUser.name}</li>
+                        <li>
+                            {authUser.email && <Link to='/order-history'>{authUser.name}</Link>}
+                            {authUser.email && <li className="btn-logout" onClick={handleLogout}>Logout</li>}
+                            {!authUser.email && <Link to='/login'>Login</Link>} 
+                        </li>
                     </ul>
                 </nav>
             </div>
