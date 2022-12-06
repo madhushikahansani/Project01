@@ -31,9 +31,6 @@ useEffect( () =>{
 },[])
 
   const handleBtnClick = () => {
-    //console.log("Click is Working");
-    // const newCartItems = [...cartItems,productDetail];
-        // setCartItems(newCartItems);
         props.dispatch({
           type:'ADD_CART_ITEMS',
           payload: productDetail
