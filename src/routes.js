@@ -8,6 +8,9 @@ import ShoppingCart from './pages/ShoppingCart';
 import ProductView from './pages/ProductView';
 import Checkout from './pages/Checkout';
 import LoginPage from "./pages/LoginPage";
+import Account from "./pages/Account";
+import OrderHistory from './pages/OrderHistory';
+import Profile from "./pages/Profile";
 
 export const routesConfig = [
     {
@@ -57,4 +60,22 @@ export const routesConfig = [
         path:"/login",
         element: <LoginPage/>
     },
+    {
+        // path:"/account",
+        element: <Account/>,
+        children:[
+            {
+                path:"/order-history",
+                element: <OrderHistory/>
+        
+            },
+            {
+                path:"/profile",
+                element: <Profile/>
+        
+            }
+        ]
+    },
+    
+
 ]
